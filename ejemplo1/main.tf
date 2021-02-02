@@ -22,15 +22,18 @@ resource "docker_container" "contenedor-ubuntu" {
   name  = "mi_contenedor_ubuntu"
   image = docker_image.imagen-ubuntu.latest
   command = ["bash", "-c", "sleep 3600"]
-  volumes {
-      host_path = "/home/ubuntu/environment/cursoTerraform"
-      container_path = "/cursoTerraform"
+  
+  dynamic "volumes" {
+    for_each = var.volumenes
+    content {
+        host_path      = volumes.value["host_path"]
+        container_path = volumes.value["container_path"]
+    }
   }
-  volumes {
-      host_path = "/home/ubuntu/environment/ivan"
-      container_path = "/Ivan"
-  }
+  
 }
+
+
 
 /*
 resource "docker_volume" "ivan" {
