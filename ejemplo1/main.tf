@@ -21,7 +21,7 @@ resource "docker_image" "imagen-ubuntu" {
 resource "docker_container" "contenedor-ubuntu" {
   name  = "mi_contenedor_ubuntu"
   image = docker_image.imagen-ubuntu.latest
-  command = ["bash", "-c", "sleep 3600"]
+  command = ["bash", "-c", "sleep 300"]
   
   dynamic "volumes" {
     for_each = var.volumenes
